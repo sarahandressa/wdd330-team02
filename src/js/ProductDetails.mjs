@@ -33,6 +33,7 @@ export default class ProductDetails {
   }
 
   async init() {
+    this.cartIcon()
     const target = document.querySelector(".product-detail");
     if (target) {
       target.innerHTML = `<div class="loading-spinner">Loading product details...</div>`;
@@ -67,5 +68,11 @@ export default class ProductDetails {
 
     document.title = `Sleep Outside | ${this.product.Brand.Name} ${this.product.NameWithoutBrand}`;
     target.innerHTML = productDetailsTemplate(this.product);
+  }
+
+  cartIcon() {
+    const cartIcon = document.querySelector(".product-count")
+    console.log(getLocalStorage("so-cart"))
+    cartIcon.textContent = getLocalStorage("so-cart").length
   }
 }
