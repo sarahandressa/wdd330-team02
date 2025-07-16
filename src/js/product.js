@@ -2,9 +2,10 @@ import { getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
-const dataSource = new ProductData("tents");
-const productId = getParam("product");
-// console.log(dataSource.findProductById(productId));
+document.addEventListener("DOMContentLoaded", () => {
+  const dataSource = new ProductData("tents");
+  const productId = getParam("product");
 
-const product = new ProductDetails(productId, dataSource);
-product.init();
+  const product = new ProductDetails(productId, dataSource);
+  product.init();
+});

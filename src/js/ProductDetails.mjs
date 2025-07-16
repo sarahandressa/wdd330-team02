@@ -1,21 +1,41 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-// This is the product detail template generator
 function productDetailsTemplate(product) {
   const fallbackImage = "/images/default-product.jpg";
   const imageSrc = product.Image || fallbackImage;
   const color = product.Colors?.[0]?.ColorName || "Color not specified";
   const description = product.DescriptionHtmlSimple || "No description available";
 
+  const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
+  const discountPercent = isDiscounted
+    ? Math.round(
+        ((product.SuggestedRetailPrice - product.FinalPrice) /
+          product.SuggestedRetailPrice) *
+          100
+      )
+    : 0;
+
   return `
     <h2>${product.Brand.Name}</h2>
     <h3 class="divider">${product.NameWithoutBrand}</h3>
-    <img
-      src="${imageSrc}"
-      alt="${product.NameWithoutBrand}"
-      class="divider"
-    />
-    <p class="product-card__price">$${product.FinalPrice}</p>
+    <div class="image-container">
+      <img
+        src="${imageSrc}"
+        alt="${product.NameWithoutBrand}"
+        class="divider"
+      />
+      ${isDiscounted ? `<div class="discount-badge">-${discountPercent}%</div>` : ""}
+    </div>
+    <p class="product-card__price">
+      ${
+        isDiscounted
+          ? `<span class="old-price">$${product.SuggestedRetailPrice.toFixed(
+              2
+            )}</span>`
+          : ""
+      }
+      <span class="final-price">$${product.FinalPrice.toFixed(2)}</span>
+    </p>
     <p class="product__color">${color}</p>
     <p class="product__description">${description}</p>
     <div class="product-detail__add">
@@ -24,7 +44,6 @@ function productDetailsTemplate(product) {
   `;
 }
 
-//  Main class
 export default class ProductDetails {
   constructor(productId, dataSource) {
     this.productId = productId;
@@ -33,7 +52,10 @@ export default class ProductDetails {
   }
 
   async init() {
-    this.cartIcon()
+    console.log("ProductDetails init called");
+
+    this.cartIcon();
+
     const target = document.querySelector(".product-detail");
     if (target) {
       target.innerHTML = `<div class="loading-spinner">Loading product details...</div>`;
@@ -41,6 +63,7 @@ export default class ProductDetails {
       try {
         this.product = await this.dataSource.findProductById(this.productId);
         this.renderProductDetails();
+
         document
           .getElementById("addToCart")
           ?.addEventListener("click", this.addProductToCart.bind(this));
@@ -49,13 +72,14 @@ export default class ProductDetails {
         console.error(error);
       }
     }
-    
   }
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
     cartItems.push(this.product);
     setLocalStorage("so-cart", cartItems);
+
+    this.cartIcon();
   }
 
   renderProductDetails() {
@@ -71,8 +95,13 @@ export default class ProductDetails {
   }
 
   cartIcon() {
-    const cartIcon = document.querySelector(".product-count")
-    console.log(getLocalStorage("so-cart"))
-    cartIcon.textContent = getLocalStorage("so-cart").length
+    const cartIcon = document.querySelector(".product-count");
+    const cart = getLocalStorage("so-cart") || [];
+
+    if (cartIcon) {
+      cartIcon.textContent = cart.length;
+    } else {
+      console.warn("Element '.product-count' not found in the DOM.");
+    }
   }
 }

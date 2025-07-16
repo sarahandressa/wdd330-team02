@@ -281,6 +281,37 @@ button {
   }
 }
 
+/* Discount Badge Style */
+
+.image-container {
+  position: relative;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: var(--tertiary-color);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: var(--light-grey);
+  margin: 0.5rem;
+}
+
+.final-price {
+  color: var(--dark-grey);
+  font-weight: bold;
+}
+
+/* Footer Styles */
+
 footer {
   font-size: var(--small-font);
   padding: 1em;
