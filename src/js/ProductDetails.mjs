@@ -33,19 +33,23 @@ export default class ProductDetails {
   }
 
   async init() {
+    this.cartIcon()
     const target = document.querySelector(".product-detail");
-    target.innerHTML = `<div class="loading-spinner">Loading product details...</div>`;
+    if (target) {
+      target.innerHTML = `<div class="loading-spinner">Loading product details...</div>`;
 
-    try {
-      this.product = await this.dataSource.findProductById(this.productId);
-      this.renderProductDetails();
-      document
-        .getElementById("addToCart")
-        ?.addEventListener("click", this.addProductToCart.bind(this));
-    } catch (error) {
-      target.innerHTML = `<p class="error-message">Unable to load product at this time.</p>`;
-      console.error(error);
+      try {
+        this.product = await this.dataSource.findProductById(this.productId);
+        this.renderProductDetails();
+        document
+          .getElementById("addToCart")
+          ?.addEventListener("click", this.addProductToCart.bind(this));
+      } catch (error) {
+        target.innerHTML = `<p class="error-message">Unable to load product at this time.</p>`;
+        console.error(error);
+      }
     }
+    
   }
 
   addProductToCart() {
@@ -64,5 +68,11 @@ export default class ProductDetails {
 
     document.title = `Sleep Outside | ${this.product.Brand.Name} ${this.product.NameWithoutBrand}`;
     target.innerHTML = productDetailsTemplate(this.product);
+  }
+
+  cartIcon() {
+    const cartIcon = document.querySelector(".product-count")
+    console.log(getLocalStorage("so-cart"))
+    cartIcon.textContent = getLocalStorage("so-cart").length
   }
 }

@@ -1,11 +1,12 @@
-import { getLocalStorage , setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
 
   // Message for empty cart
   if (cartItems.length === 0) {
-    document.querySelector(".product-list").innerHTML = "<p>Your cart is empty.</p>";
+    document.querySelector(".product-list").innerHTML =
+      "<p>Your cart is empty.</p>";
     return;
   }
 
@@ -46,10 +47,10 @@ function attachRemoveListeners() {
 
 function removeItemFromCart(id) {
   let cartItems = getLocalStorage("so-cart") || [];
-  
+
   const indexToRemove = cartItems.findIndex((item) => item.Id === id);
   if (indexToRemove !== -1) {
-    cartItems.splice(indexToRemove, 1); 
+    cartItems.splice(indexToRemove, 1);
   }
 
   setLocalStorage("so-cart", cartItems);
