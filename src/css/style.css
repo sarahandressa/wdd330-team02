@@ -316,6 +316,13 @@ button {
   font-weight: bold;
 }
 
+/*adding cartTotal and cartFooter 7/17/2025 - Dakota*/
+.cartTotal  .cartFooter {
+display: block;
+}
+
+
+
 /* Footer Styles */
 
 footer {
