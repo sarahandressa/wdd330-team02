@@ -5,13 +5,13 @@ function renderCartContents() {
 
   // Message for empty cart
   if (cartItems.length === 0) {
-    document.querySelector(".product-list").innerHTML =
+    document.querySelector(".product-list-cart").innerHTML =
       "<p>Your cart is empty.</p>";
     return;
   }
 
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  document.querySelector(".product-list-cart").innerHTML = htmlItems.join("");
 
   attachRemoveListeners();
 }

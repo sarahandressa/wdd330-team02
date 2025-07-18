@@ -178,7 +178,7 @@ button {
   justify-content: center;
 }
 
-.product-list a {
+.product-list a, .product-list-cart a{
   text-decoration: none;
   color: var(--dark-grey);
 }
