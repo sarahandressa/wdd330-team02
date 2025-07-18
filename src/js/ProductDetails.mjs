@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import cartIcon, { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
   const fallbackImage = "/images/default-product.jpg";
@@ -54,8 +54,6 @@ export default class ProductDetails {
   async init() {
     console.log("ProductDetails init called");
 
-    this.cartIcon();
-
     const target = document.querySelector(".product-detail");
     if (target) {
       target.innerHTML = `<div class="loading-spinner">Loading product details...</div>`;
@@ -76,10 +74,11 @@ export default class ProductDetails {
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
-    cartItems.push(this.product);
-    setLocalStorage("so-cart", cartItems);
-
-    this.cartIcon();
+    if (!cartItems.some(product => product.Id === this.product.Id)) {
+      cartItems.push(this.product);
+      setLocalStorage("so-cart", cartItems);
+      cartIcon()
+    }
   }
 
   renderProductDetails() {
@@ -92,16 +91,5 @@ export default class ProductDetails {
 
     document.title = `Sleep Outside | ${this.product.Brand.Name} ${this.product.NameWithoutBrand}`;
     target.innerHTML = productDetailsTemplate(this.product);
-  }
-
-  cartIcon() {
-    const cartIcon = document.querySelector(".product-count");
-    const cart = getLocalStorage("so-cart") || [];
-
-    if (cartIcon) {
-      cartIcon.textContent = cart.length;
-    } else {
-      console.warn("Element '.product-count' not found in the DOM.");
-    }
   }
 }

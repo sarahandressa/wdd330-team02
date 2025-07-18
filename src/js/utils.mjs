@@ -31,7 +31,6 @@ export function getParam(param) {
   return product;
 }
 
-
 export function renderListWithTemplate(template, parentElement, list, position = "afterbegin", clear = false) {
   const htmlStrings = list.map(template);
   if (clear) {
@@ -62,4 +61,17 @@ export async function loadHeaderFooter() {
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+export default function cartIcon() {
+  const cart = getLocalStorage("so-cart") || [];
+
+  const observer = new MutationObserver(() => {
+    const cartIcon = document.querySelector(".product-count");
+    if (cartIcon) {
+      cartIcon.textContent = cart.length;
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 }
