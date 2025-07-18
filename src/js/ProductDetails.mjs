@@ -74,11 +74,16 @@ export default class ProductDetails {
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
+    
     if (!cartItems.some(product => product.Id === this.product.Id)) {
+      this.product.Quantity = 1
       cartItems.push(this.product);
       setLocalStorage("so-cart", cartItems);
-      cartIcon()
+    } else {
+      cartItems.find(product => product.Id === this.product.Id).Quantity += 1
+      setLocalStorage("so-cart", cartItems);
     }
+    cartIcon()
   }
 
   renderProductDetails() {
