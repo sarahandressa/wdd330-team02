@@ -12,7 +12,7 @@ function productCardTemplate(product) {
           <img src="${product.Image}" alt="Image of ${product.Name}">
           ${isDiscounted ? `<div class="discount-badge">-${discountPercent}%</div>` : ""}
         </div>  
-        <h2 class="card__brand">${product.Brand}</h2>
+        <h2 class="card__brand">${product.Brand.Name}</h2>
         <h3 class="card__name">${product.Name}</h3>
         <p class="product-card__price">
         ${isDiscounted ? `<span class="old-price">$${product.SuggestedRetailPrice.toFixed(2)}</span>` : ""}
