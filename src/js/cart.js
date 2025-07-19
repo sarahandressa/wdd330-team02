@@ -28,7 +28,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "N/A"}</p>
-  <p class="cart-card__quantity">qty: ${item.Quantity}</p>
+  <p class="cart-card__quantity">qty: ${item.quantity}</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <span class="remove-item" data-id="${item.Id}">❌</span>
 </li>`;
@@ -45,16 +45,55 @@ function attachRemoveListeners() {
   });
 }
 
+
 function removeItemFromCart(id) {
   let cartItems = getLocalStorage("so-cart") || [];
 
-  const indexToRemove = cartItems.findIndex((item) => item.Id === id);
-  if (indexToRemove !== -1) {
-    cartItems.splice(indexToRemove, 1);
-  }
+  const item = cartItems.find((item) => item.Id === id);
 
-  setLocalStorage("so-cart", cartItems);
-  renderCartContents();
+  if (item) {
+    if (item.quantity > 1) {
+      item.quantity -= 1; // Decrease by 1
+    } else {
+      // Remove if quantity becomes 0
+      cartItems = cartItems.filter((item) => item.Id !== id);
+    }
+
+    setLocalStorage("so-cart", cartItems);
+    renderCartContents();
+    calculateCartTotal();
+  }
 }
 
+
+
+
+//Total price fix 
+function calculateCartTotal() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const total = cartItems.reduce((sum, item) => {
+    const quantity = item.quantity || 1;
+    return sum + item.FinalPrice * quantity;
+  }, 0);
+
+  const totalElement = document.querySelector(".cartTotal");
+  if (totalElement) {
+    totalElement.textContent = `Total: $${total.toFixed(2)}`;
+  }
+}
+
+function ensureCartQuantities() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  cartItems.forEach(item => {
+    if (!item.quantity) item.quantity = 1;
+  });
+  setLocalStorage("so-cart", cartItems);
+  return cartItems;
+}
+
+
+const cartItems = ensureCartQuantities();
 renderCartContents();
+calculateCartTotal();
+
+

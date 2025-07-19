@@ -64,14 +64,24 @@ export async function loadHeaderFooter() {
 }
 
 export default function cartIcon() {
-  const cart = getLocalStorage("so-cart") || [];
-
-  const observer = new MutationObserver(() => {
+  const updateCartCount = () => {
+    const cart = getLocalStorage("so-cart") || [];
+    const totalQuantity = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
     const cartIcon = document.querySelector(".product-count");
     if (cartIcon) {
-      cartIcon.textContent = cart.length;
-      observer.disconnect();
+      cartIcon.textContent = totalQuantity;
     }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
+  };
+
+  if (document.querySelector(".product-count")) {
+    updateCartCount();
+  } else {
+    const observer = new MutationObserver(() => {
+      if (document.querySelector(".product-count")) {
+        updateCartCount();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
 }

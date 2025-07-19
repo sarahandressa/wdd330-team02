@@ -10,8 +10,7 @@ function productDetailsTemplate(product) {
   const discountPercent = isDiscounted
     ? Math.round(
         ((product.SuggestedRetailPrice - product.FinalPrice) /
-          product.SuggestedRetailPrice) *
-          100
+          product.SuggestedRetailPrice) * 100
       )
     : 0;
 
@@ -29,9 +28,7 @@ function productDetailsTemplate(product) {
     <p class="product-card__price">
       ${
         isDiscounted
-          ? `<span class="old-price">$${product.SuggestedRetailPrice.toFixed(
-              2
-            )}</span>`
+          ? `<span class="old-price">$${product.SuggestedRetailPrice.toFixed(2)}</span>`
           : ""
       }
       <span class="final-price">$${product.FinalPrice.toFixed(2)}</span>
@@ -73,17 +70,19 @@ export default class ProductDetails {
   }
 
   addProductToCart() {
-    const cartItems = getLocalStorage("so-cart") || [];
-    
-    if (!cartItems.some(product => product.Id === this.product.Id)) {
-      this.product.Quantity = 1
-      cartItems.push(this.product);
-      setLocalStorage("so-cart", cartItems);
+    let cartItems = getLocalStorage("so-cart") || [];
+
+    const existingItem = cartItems.find(item => item.Id === this.product.Id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
     } else {
-      cartItems.find(product => product.Id === this.product.Id).Quantity += 1
-      setLocalStorage("so-cart", cartItems);
+      const newItem = { ...this.product, quantity: 1 };
+      cartItems.push(newItem);
     }
-    cartIcon()
+
+    setLocalStorage("so-cart", cartItems);
+    cartIcon();
   }
 
   renderProductDetails() {
