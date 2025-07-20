@@ -179,7 +179,8 @@ button {
   justify-content: center;
 }
 
-.product-list a, .product-list-cart a{
+.product-list a,
+.product-list-cart a {
   text-decoration: none;
   color: var(--dark-grey);
 }
@@ -318,15 +319,25 @@ button {
 }
 
 /*adding cartTotal and cartFooter 7/17/2025 - Dakota*/
-.cartTotal  .cartFooter {
-display: block;
+.cart-total,
+.cart-footer {
+  display: block;
 }
-
-
 
 /* Footer Styles */
 
 footer {
   font-size: var(--small-font);
   padding: 1em;
+}
+
+/* Alert List Styles */
+.alert-list {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.alert-list p {
+  margin: 0;
+  padding: 0.5em;
 }
