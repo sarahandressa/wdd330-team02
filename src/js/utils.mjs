@@ -64,24 +64,29 @@ export async function loadHeaderFooter() {
 }
 
 export default function cartIcon() {
+  const cartIcon = document.querySelector(".product-count");
+
   const updateCartCount = () => {
     const cart = getLocalStorage("so-cart") || [];
     const totalQuantity = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    const cartIcon = document.querySelector(".product-count");
     if (cartIcon) {
       cartIcon.textContent = totalQuantity;
     }
   };
 
-  if (document.querySelector(".product-count")) {
+  if (cartIcon) {
     updateCartCount();
   } else {
     const observer = new MutationObserver(() => {
-      if (document.querySelector(".product-count")) {
-        updateCartCount();
+      const icon = document.querySelector(".product-count");
+      if (icon) {
+        const cart = getLocalStorage("so-cart") || [];
+        const totalQuantity = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        icon.textContent = totalQuantity;
         observer.disconnect();
       }
     });
     observer.observe(document.body, { childList: true, subtree: true });
   }
 }
+
