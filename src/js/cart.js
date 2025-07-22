@@ -3,7 +3,6 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
 
-  // Message for empty cart
   if (cartItems.length === 0) {
     document.querySelector(".product-list-cart").innerHTML =
       "<p>Your cart is empty.</p>";
@@ -12,28 +11,35 @@ function renderCartContents() {
 
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list-cart").innerHTML = htmlItems.join("");
-
   attachRemoveListeners();
 }
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="../../product_pages/?product=${item.Id}" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="../../product_pages/?product=${item.Id}">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "N/A"}</p>
-  <p class="cart-card__quantity">qty: ${item.quantity}</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <span class="remove-item" data-id="${item.Id}">❌</span>
-</li>`;
+  // pick a real image URL, with sensible fallbacks
+  const imgSrc =
+    item.Image ||
+    item.Images?.PrimarySmall ||
+    item.Images?.PrimaryMedium ||
+    item.Images?.PrimaryLarge ||
+    "/images/default-product.jpg";
 
-  return newItem;
+  return `
+    <li class="cart-card divider">
+      <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
+        <img
+          src="${imgSrc}"
+          alt="${item.NameWithoutBrand || item.Name}"
+        />
+      </a>
+      <a href="/product_pages/index.html?product=${item.Id}">
+        <h2 class="card__name">${item.NameWithoutBrand || item.Name}</h2>
+      </a>
+      <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "N/A"}</p>
+      <p class="cart-card__quantity">qty: ${item.quantity}</p>
+      <p class="cart-card__price">$${item.FinalPrice.toFixed(2)}</p>
+      <span class="remove-item" data-id="${item.Id}">❌</span>
+    </li>
+  `;
 }
 
 function attachRemoveListeners() {
