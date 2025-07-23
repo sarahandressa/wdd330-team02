@@ -102,4 +102,6 @@ const cartItems = ensureCartQuantities();
 renderCartContents();
 calculateCartTotal();
 
+export { renderCartContents, calculateCartTotal, ensureCartQuantities };
+
 
