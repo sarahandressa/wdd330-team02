@@ -8,6 +8,9 @@ function convertToJson(res) {
   }
 }
 
+
+
+
 export default class ProductData {
   // Fetch products by category
   async getData(category) {
@@ -25,5 +28,14 @@ export default class ProductData {
     const data = await convertToJson(response);
     return data.Result;
   }
+async submitOrder(cartItems) {
+  const response = await fetch(`${serverURL}/orders`, {
+    method: "POST",
+    body: JSON.stringify(cartItems),
+    headers: { "Content-Type": "application/json" }
+  });
+  return await response.json();
+}
+
 }
 

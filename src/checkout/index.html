@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/main.js" type="module"></script>
     <script src="/js/cart.js" type="module"></script>
+    <script src="/js/utils.mjs" type="module"></script>
+    <script src="/js/checkout.js" type="module"></script>
     </head>
 <header class="divider" id="main-header"></header>
   <body>
@@ -47,6 +49,14 @@
           
             <h2>Review & Place your Order</h2>
             <!-- Additional checkout form elements can be added here -->
+             <section class="order-summary">
+<h3>Order Summary</h3>
+<p>Item Count: <span id="item-count">0</span></p>
+<p>Subtotal: <span id="subtotal">$0.00</span></p>
+<p>Tax (6%): <span id="tax">$0.00</span></p>
+<p>Shipping: <span id="shipping">$0.00</span></p>
+<p><strong>Total: <span id="order-total">$0.00</span></strong></p>
+</section>
   
           <button type="submit">Place Order</button>
     </main>
