@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { loadHeaderFooter, getParam } from "./utils.mjs";
 
@@ -6,7 +6,7 @@ loadHeaderFooter();
 
 const category = getParam("category") || "tents";
 const baseUrl = import.meta.env.VITE_SERVER_URL;
-const dataSource = new ProductData(baseUrl);
+const dataSource = new ExternalServices(baseUrl);
 const listElement = document.querySelector(".product-list");
 const productList = new ProductList(category, dataSource, listElement);
 productList.init();

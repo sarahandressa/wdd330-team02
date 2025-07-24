@@ -8,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(baseURL) {
     this.baseURL = baseURL;
   }
@@ -23,19 +23,31 @@ export default class ProductData {
   }
 
   async findProductById(id) {
-  const url = `${this.baseURL}/product/${id}`;
-  console.log("Fetching product by ID:", url); 
-  const response = await fetch(url);
-  const data = await convertToJson(response);
-  return data.Result;
-}
+    const url = `${this.baseURL}/product/${id}`;
+    console.log("Fetching product by ID:", url); 
+    const response = await fetch(url);
+    const data = await convertToJson(response);
+    return data.Result;
+  }
 
-  async submitOrder(cartItems) {
-    const response = await fetch(`${this.baseURL}/orders`, {
+  async checkout(orderData) {
+    const url = `${this.baseURL}/checkout`;
+    const options = {
       method: "POST",
-      body: JSON.stringify(cartItems),
-      headers: { "Content-Type": "application/json" }
-    });
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(orderData)
+    };
+
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      const errorText = await response.text(); // Capture any body error
+      console.error("❌ Server response:", response.status, response.statusText, errorText);
+      throw new Error(`Checkout failed: ${response.status} - ${errorText}`);
+    }
+
+
     return await response.json();
   }
 }
