@@ -8,34 +8,34 @@ function convertToJson(res) {
   }
 }
 
-
-
-
 export default class ProductData {
-  // Fetch products by category
+  constructor(baseURL) {
+    this.baseURL = baseURL;
+  }
+
   async getData(category) {
-    console.log("Fetching:", `${baseURL}/products/search/${category}`);
-    const response = await fetch(`${baseURL}/products/search/${category}`);
+    console.log("Fetching:", `${this.baseURL}/products/search/${category}`);
+    const response = await fetch(`${this.baseURL}/products/search/${category}`);
     console.log("Status:", response.status);
     const data = await convertToJson(response);
     console.log("Data received:", data);
     return data.Result;
   }
 
-  // Fetch single product by ID
   async findProductById(id) {
-    const response = await fetch(`${baseURL}/product/${id}`);
-    const data = await convertToJson(response);
-    return data.Result;
+  const url = `${this.baseURL}/product/${id}`;
+  console.log("Fetching product by ID:", url); 
+  const response = await fetch(url);
+  const data = await convertToJson(response);
+  return data.Result;
+}
+
+  async submitOrder(cartItems) {
+    const response = await fetch(`${this.baseURL}/orders`, {
+      method: "POST",
+      body: JSON.stringify(cartItems),
+      headers: { "Content-Type": "application/json" }
+    });
+    return await response.json();
   }
-async submitOrder(cartItems) {
-  const response = await fetch(`${serverURL}/orders`, {
-    method: "POST",
-    body: JSON.stringify(cartItems),
-    headers: { "Content-Type": "application/json" }
-  });
-  return await response.json();
 }
-
-}
-

@@ -8,10 +8,13 @@ loadHeaderFooter();
 cartIcon();
 
 const productId = getParam("product");
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 if (!productId) {
   document.querySelector("main").innerHTML =
     "<p class='error'>No product specified.</p>";
 } else {
-  const details = new ProductDetails(productId, new ProductData());
+  const dataSource = new ProductData(baseURL);
+  const details = new ProductDetails(productId, dataSource);
   details.init();
 }

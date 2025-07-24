@@ -51,7 +51,6 @@ function attachRemoveListeners() {
   });
 }
 
-
 function removeItemFromCart(id) {
   let cartItems = getLocalStorage("so-cart") || [];
 
@@ -71,10 +70,7 @@ function removeItemFromCart(id) {
   }
 }
 
-
-
-
-//Total price fix 
+//Total price fix
 function calculateCartTotal() {
   const cartItems = getLocalStorage("so-cart") || [];
   const total = cartItems.reduce((sum, item) => {
@@ -90,18 +86,15 @@ function calculateCartTotal() {
 
 function ensureCartQuantities() {
   const cartItems = getLocalStorage("so-cart") || [];
-  cartItems.forEach(item => {
+  cartItems.forEach((item) => {
     if (!item.quantity) item.quantity = 1;
   });
   setLocalStorage("so-cart", cartItems);
   return cartItems;
 }
 
-
 const cartItems = ensureCartQuantities();
 renderCartContents();
 calculateCartTotal();
 
 export { renderCartContents, calculateCartTotal, ensureCartQuantities };
-
-
