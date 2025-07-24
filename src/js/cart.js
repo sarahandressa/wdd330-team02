@@ -67,6 +67,10 @@ function removeItemFromCart(id) {
     setLocalStorage("so-cart", cartItems);
     renderCartContents();
     calculateCartTotal();
+
+    if (window.checkout) {
+      window.checkout.init(); // Recalculate summary and update DOM
+    }
   }
 }
 

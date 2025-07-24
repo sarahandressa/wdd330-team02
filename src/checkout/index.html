@@ -1,62 +1,61 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Checkout</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/main.js" type="module"></script>
-    <script src="/js/cart.js" type="module"></script>
-    <script src="/js/utils.mjs" type="module"></script>
-    <script src="/js/checkout.js" type="module"></script>
-  </head>
-  <header class="divider" id="main-header"></header>
-  <body>
-    <main class="checkout">
-      <section class="products">
-        <h2>My Cart</h2>
-        <ul class="product-list-cart"></ul>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sleep Outside | Checkout</title>
 
-      <form id="checkout-form">
-        <label for="fname">First name:</label><br />
-        <input type="text" id="fname" name="fname" /><br />
-        <label for="lname">Last name:</label><br />
-        <input type="text" id="lname" name="lname" /><br />
-        <label for="email">Email:</label><br />
-        <input type="email" id="email" name="email" /><br />
-        <label for="address">Address:</label><br />
-        <input type="text" id="address" name="address" /><br />
-        <label for="city">City:</label><br />
-        <input type="text" id="city" name="city" /><br />
-        <label for="state">State:</label><br />
-        <input type="text" id="state" name="state" /><br />
-        <label for="zip">Zip Code:</label><br />
-        <input type="text" id="zip" name="zip" /><br />
-        <label for="card">Credit Card Number:</label><br />
-        <input type="text" id="card" name="card" /><br />
-        <label for="exp">Expiration Date:</label><br />
-        <input type="text" id="exp" name="exp" /><br />
-        <label for="cvv">CVV:</label><br />
-        <input type="text" id="cvv" name="cvv" /><br />
-      </form>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/js/main.js" type="module"></script>
+  <script src="/js/cart.js" type="module"></script>
+  <script type="module" src="/js/checkout.js"></script>
+</head>
 
-      <h2>Review & Place your Order</h2>
-      <!-- Additional checkout form elements can be added here -->
-      <section class="order-summary">
-        <h3>Order Summary</h3>
-        <p>Item Count: <span id="item-count">0</span></p>
-        <p>Subtotal: <span id="subtotal">$0.00</span></p>
-        <p>Tax (6%): <span id="tax">$0.00</span></p>
-        <p>Shipping: <span id="shipping">$0.00</span></p>
-        <p>
-          <strong>Total: <span id="order-total">$0.00</span></strong>
-        </p>
-      </section>
+<body>
+  <header id="main-header"></header>
 
-      <button type="submit">Place Order</button>
-    </main>
-  </body>
+  <main class="checkout">
+  <h2>Checkout</h2>
+
+  <!-- 🛒 Cart Section -->
+  <section class="products">
+    <h3>My Cart</h3>
+    <ul class="product-list-cart"></ul>
+  </section>
+
+  <!-- 💳 Order Summary -->
+  <section class="order-summary">
+    <h3>Order Summary</h3>
+    <p>Items: <span id="item-count">0</span></p>
+    <p>Subtotal: $<span id="subtotal">0.00</span></p>
+    <p>Tax (6%): $<span id="tax">0.00</span></p>
+    <p>Shipping: $<span id="shipping">0.00</span></p>
+    <p><strong>Order Total: $<span id="order-total">0.00</span></strong></p>
+  </section>
+
+  <!-- 📝 Checkout Form -->
+  <form id="checkout-form">
+    <h3>Customer Information</h3>
+    <label>First Name:<br><input type="text" name="fname" id="fname" required /></label><br>
+    <label>Last Name:<br><input type="text" name="lname" id="lname" required /></label><br>
+    <label>Email:<br><input type="email" name="email" id="email" required /></label><br>
+
+    <h3>Address</h3>
+    <label>Street:<br><input type="text" name="street" id="street" required /></label><br>
+    <label>City:<br><input type="text" name="city" id="city" required /></label><br>
+    <label>State:<br><input type="text" name="state" id="state" required /></label><br>
+    <label>Zip Code:<br><input type="text" name="zip" id="zip" required /></label><br>
+
+    <h3>Payment Info</h3>
+    <label>Credit Card Number:<br><input type="text" name="cardNumber" id="cardNumber" required /></label><br>
+    <label>Expiration Date:<br><input type="text" name="expiration" id="expiration" required /></label><br>
+    <label>CVV:<br><input type="text" name="code" id="code" required /></label><br>
+
+    <button type="submit">Place Order</button>
+  </form>
+</main>
+
+
   <footer id="main-footer"></footer>
+</body>
 </html>
