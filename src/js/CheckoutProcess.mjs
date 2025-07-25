@@ -1,5 +1,5 @@
 import { getLocalStorage, formDataToJSON } from './utils.mjs';
-import ExternalServices from './ProductData.mjs'; // file still named ProductData
+import ProductData from './ExternalServices.mjs'; // file still named ProductData
 import { ensureCartQuantities } from './cart.js';
 
 export default class CheckoutProcess {
@@ -61,7 +61,7 @@ export default class CheckoutProcess {
     order.orderTotal = this.orderTotal.toFixed(2);
 
     try {
-      const response = await new ExternalServices(import.meta.env.VITE_SERVER_URL).checkout(order);
+      const response = await new ProductData(import.meta.env.VITE_SERVER_URL).checkout(order);
       console.log('✅ Order submitted:', response);
       localStorage.removeItem(this.key);
       // Optionally redirect or show success message

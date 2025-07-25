@@ -1,7 +1,7 @@
 // src/js/product-detail.js
 
 import cartIcon, { loadHeaderFooter, getParam } from "./utils.mjs";
-import ExternalServices from "./ProductData.mjs";
+import ProductData from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 
 loadHeaderFooter();
@@ -14,7 +14,7 @@ if (!productId) {
   document.querySelector("main").innerHTML =
     "<p class='error'>No product specified.</p>";
 } else {
-  const dataSource = new ExternalServices(baseURL);
+  const dataSource = new ProductData(baseURL);
   const details = new ProductDetails(productId, dataSource);
   details.init();
 }

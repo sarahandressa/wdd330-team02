@@ -40,6 +40,9 @@ header {
 p {
   padding: 0.75rem;
 }
+a {
+  text-decoration: none;
+}
 
 .logo {
   line-height: 60px;
