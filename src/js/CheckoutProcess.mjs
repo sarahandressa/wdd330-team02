@@ -1,4 +1,4 @@
-import { getLocalStorage, formDataToJSON } from './utils.mjs';
+import { getLocalStorage, formDataToJSON, alertMessage, removeAllAlerts } from './utils.mjs';
 import ProductData from './ExternalServices.mjs'; // file still named ProductData
 import { ensureCartQuantities } from './cart.js';
 
@@ -64,10 +64,28 @@ export default class CheckoutProcess {
       const response = await new ProductData(import.meta.env.VITE_SERVER_URL).checkout(order);
       console.log('✅ Order submitted:', response);
       localStorage.removeItem(this.key);
-      // Optionally redirect or show success message
     } catch (err) {
-      console.error('❌ Checkout failed:', err);
+      removeAllAlerts();
+
+      let message = err.message;
+
+      const jsonStart = message.indexOf("{");
+      if (jsonStart !== -1) {
+        const jsonString = message.slice(jsonStart);
+        try {
+          const errors = JSON.parse(jsonString);
+          Object.entries(errors).forEach(([field, msg]) => {
+            alertMessage(`${field}: ${msg}`);
+          });
+        } catch (e) {
+          alertMessage(message);
+        }
+      } else {
+        alertMessage(message);
+      }
+
+      console.log(err);
     }
   }
-}
 
+}
