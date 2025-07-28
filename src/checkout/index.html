@@ -1,61 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sleep Outside | Checkout</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Checkout</title>
 
-  <link rel="stylesheet" href="/css/style.css" />
-  <script src="/js/main.js" type="module"></script>
-  <script src="/js/cart.js" type="module"></script>
-  <script type="module" src="/js/checkout.js"></script>
-</head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/main.js" type="module"></script>
+    <script src="/js/cart.js" type="module"></script>
+    <script type="module" src="/js/checkout.js"></script>
+  </head>
 
-<body>
-  <header id="main-header"></header>
+  <body>
+    <header id="main-header"></header>
 
-  <main class="checkout">
-  <h2>Checkout</h2>
+    <main class="checkout">
+      <h2>Checkout</h2>
 
-  <!-- 🛒 Cart Section -->
-  <section class="products">
-    <h3>My Cart</h3>
-    <ul class="product-list-cart"></ul>
-  </section>
+      <!-- 🛒 Cart Section -->
+      <section class="products">
+        <h3>My Cart</h3>
+        <ul class="product-list-cart"></ul>
+      </section>
 
-  <!-- 💳 Order Summary -->
-  <section class="order-summary">
-    <h3>Order Summary</h3>
-    <p>Items: <span id="item-count">0</span></p>
-    <p>Subtotal: $<span id="subtotal">0.00</span></p>
-    <p>Tax (6%): $<span id="tax">0.00</span></p>
-    <p>Shipping: $<span id="shipping">0.00</span></p>
-    <p><strong>Order Total: $<span id="order-total">0.00</span></strong></p>
-  </section>
+      <!-- 💳 Order Summary -->
+      <section class="order-summary">
+        <h3>Order Summary</h3>
+        <p>Items: <span id="item-count">0</span></p>
+        <p>Subtotal: $<span id="subtotal">0.00</span></p>
+        <p>Tax (6%): $<span id="tax">0.00</span></p>
+        <p>Shipping: $<span id="shipping">0.00</span></p>
+        <p>
+          <strong>Order Total: $<span id="order-total">0.00</span></strong>
+        </p>
+      </section>
 
-  <!-- 📝 Checkout Form -->
-  <form id="checkout-form">
-    <h3>Customer Information</h3>
-    <label>First Name:<br><input type="text" name="fname" id="fname" required /></label><br>
-    <label>Last Name:<br><input type="text" name="lname" id="lname" required /></label><br>
-    <label>Email:<br><input type="email" name="email" id="email" required /></label><br>
+      <!-- 📝 Checkout Form -->
+      <form id="checkout-form">
+        <h3>Customer Information</h3>
+        <label
+          >First Name:<br /><input
+            type="text"
+            name="fname"
+            id="fname"
+            required /></label
+        ><br />
+        <label
+          >Last Name:<br /><input
+            type="text"
+            name="lname"
+            id="lname"
+            required /></label
+        ><br />
+        <label
+          >Email:<br /><input
+            type="email"
+            name="email"
+            id="email"
+            required /></label
+        ><br />
 
-    <h3>Address</h3>
-    <label>Street:<br><input type="text" name="street" id="street" required /></label><br>
-    <label>City:<br><input type="text" name="city" id="city" required /></label><br>
-    <label>State:<br><input type="text" name="state" id="state" required /></label><br>
-    <label>Zip Code:<br><input type="text" name="zip" id="zip" required /></label><br>
+        <h3>Address</h3>
+        <label
+          >Street:<br /><input
+            type="text"
+            name="street"
+            id="street"
+            required /></label
+        ><br />
+        <label
+          >City:<br /><input
+            type="text"
+            name="city"
+            id="city"
+            required /></label
+        ><br />
+        <label
+          >State:<br /><input
+            type="text"
+            name="state"
+            id="state"
+            required /></label
+        ><br />
+        <label
+          >Zip Code:<br /><input
+            type="text"
+            name="zip"
+            id="zip"
+            required /></label
+        ><br />
 
-    <h3>Payment Info</h3>
-    <label>Credit Card Number:<br><input type="text" name="cardNumber" id="cardNumber" required /></label><br>
-    <label>Expiration Date:<br><input type="text" name="expiration" id="expiration" required /></label><br>
-    <label>CVV:<br><input type="text" name="code" id="code" required /></label><br>
+        <h3>Payment Info</h3>
+        <label
+          >Credit Card Number:<br /><input
+            type="text"
+            name="cardNumber"
+            id="cardNumber"
+            required /></label
+        ><br />
+        <label
+          >Expiration Date:<br /><input
+            type="text"
+            name="expiration"
+            id="expiration"
+            required /></label
+        ><br />
+        <label
+          >CVV:<br /><input type="text" name="code" id="code" required /></label
+        ><br />
 
-    <button type="submit">Place Order</button>
-  </form>
-</main>
+        <button type="submit">Place Order</button>
+      </form>
+    </main>
 
-
-  <footer id="main-footer"></footer>
-</body>
+    <footer id="main-footer"></footer>
+  </body>
 </html>

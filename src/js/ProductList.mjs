@@ -10,7 +10,7 @@ function productCardTemplate(product) {
   // 2. Normalize it (ensure it’s absolute or root-relative)
   const imgSrc = rawSrc.startsWith("http")
     ? rawSrc
-    : `/${rawSrc.replace(/^\/+/, "")}`; 
+    : `/${rawSrc.replace(/^\/+/, "")}`;
 
   const isDiscounted = product.FinalPrice < product.SuggestedRetailPrice;
   const discountPercent = isDiscounted
