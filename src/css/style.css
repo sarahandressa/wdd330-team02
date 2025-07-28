@@ -560,3 +560,23 @@ form button:hover {
     cursor: pointer;
   }
 }
+
+
+.sort-controls {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-controls label {
+  font-weight: bold;
+}
+
+.sort-controls select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 1rem;
+}

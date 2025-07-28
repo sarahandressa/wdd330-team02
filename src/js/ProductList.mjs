@@ -55,6 +55,7 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.products = [];
   }
 
   async init() {
@@ -65,6 +66,8 @@ export default class ProductList {
         throw new Error("Expected an array of products");
       }
 
+      // Store the product
+      this.products = list;
       // Render all products returned by the API
       this.renderList(list);
     } catch (err) {
@@ -75,6 +78,26 @@ export default class ProductList {
          </li>`;
     }
   }
+
+
+  sortProducts(sortBy) {
+    const sorted = [...this.products]; // Create a copy
+    
+    switch(sortBy) {
+      case 'name':
+        sorted.sort((a, b) => a.Name.localeCompare(b.Name));
+        break;
+      case 'price':
+        sorted.sort((a, b) => a.FinalPrice - b.FinalPrice);
+        break;
+      default:
+        // Default keeps original order (no sorting)
+        return this.renderList(this.products);
+    }
+    
+    this.renderList(sorted);
+  }
+
 
   renderList(list) {
     renderListWithTemplate(productCardTemplate, this.listElement, list);
