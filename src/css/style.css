@@ -560,3 +560,13 @@ form button:hover {
     cursor: pointer;
   }
 }
+
+.sort-buttons {
+  position: absolute;
+  top: 150px;
+  right: 10px;
+
+  @media screen and (min-width: 1080px) {
+    right: 20%;
+  }
+}
