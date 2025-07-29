@@ -58,7 +58,6 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
-    this.products = [];
   }
 
   async init() {
