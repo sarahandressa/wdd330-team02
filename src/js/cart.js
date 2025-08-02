@@ -67,9 +67,10 @@ function removeItemFromCart(id) {
     setLocalStorage("so-cart", cartItems);
     renderCartContents();
     calculateCartTotal();
+    animateCartIcon();
 
     if (window.checkout) {
-      window.checkout.init(); // Recalculate summary and update DOM
+      window.checkout.init();
     }
   }
 }
@@ -97,8 +98,17 @@ function ensureCartQuantities() {
   return cartItems;
 }
 
+function animateCartIcon() {
+  const cartIcon = document.querySelector(".cart-icon");
+  if (cartIcon) {
+    cartIcon.classList.add("animate");
+    setTimeout(() => cartIcon.classList.remove("animate"), 600); 
+  }
+}
+
+
 const cartItems = ensureCartQuantities();
 renderCartContents();
 calculateCartTotal();
 
-export { renderCartContents, calculateCartTotal, ensureCartQuantities };
+export { renderCartContents, calculateCartTotal, ensureCartQuantities , animateCartIcon};
